@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Detect AdBlock</title>
+</head>
+<body>
+    <div id="detect"></div>
+    <div class="wrapper">
+        <div class="content">
+            <div class="warn-icon">
+                <span><i class="fas fa-exclamation"></i></span>
+            </div>
+            <h2>AddBlock Detected!</h2>
+            <p>Tu tiene un adblock por favor sacalo</p>
+            <button> Okey. i'll whitlist</button>
+        </div>
+    </div>
+
+    <script>
+        const detect = document.querySelector('#detect'),
+        wrapper = document.querySelector('.wrapper');
+        button  = wrapper.querySelector('button');
+        //estas son algunas clases posibles que el bloqueador de anuncios evita renderizar
+        //these are some possible classes that adblocker avoid to render
+        let adClasses = ['ad', 'ads', 'asdbox','ad-placement', 'doubleclick','ad-placeholder','ad-badge'];
+
+        for(let item of adClasses){
+               //adding all  array item in detect elemnt
+            //agregando todos los elementos de la matriz en el elemento de detección
+            detect.classList.add(item); 
+        }
+        //geting display property valuw of our detect element
+        //obteniendo el valor de la propiedad de visualización de nuestro elemento de detección
+        let getProperty = window.getComputedStyle(detect).getPropertyValue('display');
+        
+
+
+        button.addEventListener('click',()=>{
+            wrapper.classList.remove('show'); //hide popup on buton click //ocultar ventana emergente al hacer clic en el botón
+        })
+
+
+        //if wrapper doesnt contains show class the check adblocker is enable or not
+        //si el contenedor no contiene la clase show, verifique que el bloqueador de anuncios esté habilitado o no
+        if(!wrapper.classList.contains('show')){
+            //if display property value is none then show the popup else hide it
+        //si el valor de la propiedad de visualización es ninguno, muestre la ventana emergente; de ​​lo contrario, ocúltela
+        getProperty =='none'? wrapper.classList.add('show') :  wrapper.classList.remove('show');
+
+        }
+
+      
+    </script>
+</body>
+</html>
